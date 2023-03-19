@@ -32,8 +32,8 @@ km6time <- km6time |>
   ),
   year = as.Date(paste0(year, "-07-01")),
   kvart = factor(kvart, c("VDEK", "AOK", "BKK", "IKK", "KBS", "SVLFG"))) |>
-  summarise(num = sum(num), .by = c(year, kvart, kvbezirk)) |>
-  mutate(pct = num / sum(num), .by = year) |>
-  complete(year, kvart, kvbezirk)
+  summarise(num = sum(num), .by = c(year, kvbezirk, kvart)) |>
+  mutate(pct = num / sum(num), .by = c(year, kvbezirk)) |>
+  complete(year, kvbezirk, kvart)
 
 readr::write_rds(km6time, "data/km6.rds")
