@@ -3,29 +3,12 @@ library(bslib)
 library(reactable)
 library(dplyr)
 
-source("R/km6-chart.R")
+#source("km6-chart.R")
 
 # read in data
 km6 <- readRDS("data/km6.rds")
 
-# ui <- page_navbar(
-#   title = "{shinygkv}",
-#   theme = bs_theme(
-#     version = 4,
-#     bootswatch = "minty",
-#     bg = "#fff",
-#     fg = "#000",
-#     primary = "#b10f21",
-#     base_font = c("Lucida Sans Unicode", "Lucida Grande", "Geneva", "Verdana", "sans-serif"),
-#   ),
-#   sidebar = sidebar(
-#     selectInput("kvbezirk", "Bezirk", choices = unique(km6$kvbezirk))
-#   ),
-#   nav("Table",
-#       reactable::reactableOutput("km6_table")
-#   )
-# )
-
+# ui
 ui <- navbarPage(
   title = "{shinygkv}",
   theme = bs_theme(
