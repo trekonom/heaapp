@@ -2,8 +2,9 @@ library(shiny)
 library(bslib)
 library(reactable)
 library(dplyr)
+library(echarts4r)
 
-#source("km6-chart.R")
+source("km6-chart.R")
 
 # read in data
 km6 <- readRDS("data/km6.rds")
@@ -28,6 +29,17 @@ ui <- navbarPage(
       ),
       mainPanel = mainPanel(
         reactable::reactableOutput("km6_table")
+      )
+    )
+  ),
+  tabPanel(
+    "Marktanteil",
+    sidebarLayout(
+      sidebarPanel = sidebarPanel(
+        selectInput("kvbezirk1", "Bezirk", choices = unique(km6$kvbezirk))
+      ),
+      mainPanel = mainPanel(
+        echarts4r::echarts4rOutput("km6_chart")
       )
     )
   )
@@ -70,6 +82,13 @@ server <- function(input, output) {
       striped = TRUE,
       defaultPageSize = 8
     )
+  })
+
+  output$km6_chart <- echarts4r::renderEcharts4r({
+    dat <- km6 |>
+      filter(kvbezirk %in% input$kvbezirk1)
+
+    km6_chart(dat, "pct")
   })
 }
 
