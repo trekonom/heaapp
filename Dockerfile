@@ -4,6 +4,7 @@ WORKDIR /home/shinygkv
 RUN mkdir -p /data
 RUN mkdir -p /R
 COPY app.R app.R
+COPY km6-chart.R km6-chart.R
 COPY data data
 COPY deploy.R deploy.R
 CMD Rscript deploy.R
